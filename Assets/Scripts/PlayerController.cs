@@ -11,12 +11,14 @@ public class PlayerController : MonoBehaviour
 
     Rigidbody2D rb2d;
     SurfaceEffector2D surfaceEffector2D;
+    CapsuleCollider2D myBodyCollider;
     bool canMove = true;
 
     // Start is called before the first frame update
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
+        myBodyCollider = GetComponent<CapsuleCollider2D>();
         surfaceEffector2D = FindObjectOfType<SurfaceEffector2D>();
     }
 
@@ -26,7 +28,7 @@ public class PlayerController : MonoBehaviour
         if (canMove)
         {
             RotatePlayer();
-            RespondToBoost();
+            RespondToBoost(); OnJump();
         }
     }
 
@@ -56,6 +58,18 @@ public class PlayerController : MonoBehaviour
         else if (Input.GetKey(KeyCode.RightArrow))
         {
             rb2d.AddTorque(-torqueAmount);
+        }
+
+    }
+    void OnJump()
+    {
+        //if (!isAlive) { return; }
+        if (!myBodyCollider.IsTouchingLayers(LayerMask.GetMask("Ground"))) { return;}
+
+        if (Input.GetKey(KeyCode.Space))
+        {
+            // do stuff
+            rb2d.velocity += new Vector2(0f, 7f);
         }
     }
 }
