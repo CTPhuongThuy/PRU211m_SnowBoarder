@@ -28,7 +28,8 @@ public class PlayerController : MonoBehaviour
         if (canMove)
         {
             RotatePlayer();
-            RespondToBoost(); OnJump();
+            RespondToBoost();
+            OnJump();
         }
     }
 
@@ -64,12 +65,12 @@ public class PlayerController : MonoBehaviour
     void OnJump()
     {
         //if (!isAlive) { return; }
-        if (!myBodyCollider.IsTouchingLayers(LayerMask.GetMask("Ground"))) { return;}
+        if (!myBodyCollider.IsTouchingLayers(LayerMask.GetMask("Ground"))) { return; }
 
         if (Input.GetKey(KeyCode.Space))
         {
             // do stuff
-            rb2d.velocity += new Vector2(0f, 7f);
+            rb2d.velocity += new Vector2(0f, 2f);
         }
     }
 }

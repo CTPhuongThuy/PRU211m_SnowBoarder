@@ -7,13 +7,14 @@ public class FinishLine : MonoBehaviour
 {
     [SerializeField] float loadDelay = 1f;
     [SerializeField] ParticleSystem finishEffect;
-    
-    void OnTriggerEnter2D(Collider2D other) 
+
+    void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.tag == "Player")
+        if (other.tag == "Player")
         {
             finishEffect.Play();
             GetComponent<AudioSource>().Play();
+            FindObjectOfType<GameSession>().SaveHighestScore();
             Invoke("ReloadScene", loadDelay);
         }
     }

@@ -10,9 +10,10 @@ public class GameSession : MonoBehaviour
     [SerializeField] int score = 0;
     int highestScore = 0;
     [SerializeField] TextMeshProUGUI scoreText;
+    [SerializeField] TextMeshProUGUI highestScoreText;
 
 
-    
+
     void Awake()
     {
         int numGameSessions = FindObjectsOfType<GameSession>().Length;
@@ -26,18 +27,21 @@ public class GameSession : MonoBehaviour
         }
     }
 
-    void Start() 
-    {
-    }
-
-    void Update() {
-        
-        
-    }
-
     public void AddToScore(int pointsToAdd)
     {
         score += pointsToAdd;
         scoreText.text = score.ToString();
+    }
+
+    public void SaveHighestScore()
+    {
+        if (score > highestScore)
+        {
+            highestScore = score;
+
+            highestScoreText.SetText(highestScore + "");
+        }
+
+        score = 0;
     }
 }
