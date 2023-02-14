@@ -39,9 +39,10 @@ public class GameSession : MonoBehaviour
         {
             highestScore = score;
 
-            highestScoreText.SetText(highestScore + "");
+            highestScoreText.text = highestScore.ToString();
         }
 
         score = 0;
+        scoreText.text = score.ToString();
     }
 }

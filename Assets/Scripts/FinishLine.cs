@@ -14,13 +14,13 @@ public class FinishLine : MonoBehaviour
         {
             finishEffect.Play();
             GetComponent<AudioSource>().Play();
-            FindObjectOfType<GameSession>().SaveHighestScore();
             Invoke("ReloadScene", loadDelay);
         }
     }
 
     void ReloadScene()
     {
+        FindObjectOfType<GameSession>().SaveHighestScore();
         SceneManager.LoadScene(0);
     }
 }
