@@ -13,9 +13,9 @@ public class Obstacle : MonoBehaviour
         {
             FindObjectOfType<GameSession>().SaveHighestScore();
             Invoke("ReloadScene", 0.5f);
-
         }
     }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Player")
