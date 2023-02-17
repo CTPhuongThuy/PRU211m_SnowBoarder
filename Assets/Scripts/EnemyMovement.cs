@@ -5,24 +5,26 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
     [SerializeField] float moveSpeed = 1f;
-    Rigidbody2D myRigidBody;
-    // Start is called before the first frame update
+    Rigidbody2D myRigidbody;
+
     void Start()
     {
-        myRigidBody = GetComponent<Rigidbody2D>();
+        myRigidbody = GetComponent<Rigidbody2D>();
     }
 
-    void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.gameObject.tag == "Player")
-        {
-            FindObjectOfType<GameSession>().SaveHighestScore();
-            Invoke("ReloadScene", 0.5f);
-        }
-    }
-
-    // Update is called once per frame
     void Update()
     {
+        myRigidbody.velocity = new Vector2(moveSpeed, 0f);
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        moveSpeed = -moveSpeed;
+        FlipEnemyFacing();
+    }
+
+    void FlipEnemyFacing()
+    {
+        transform.localScale = new Vector2(-(Mathf.Sign(myRigidbody.velocity.x)), 1f);
     }
 }

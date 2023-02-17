@@ -8,17 +8,20 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float torqueAmount = 1f;
     [SerializeField] float boostSpeed = 30f;
     [SerializeField] float baseSpeed = 20f;
+    [SerializeField] float jumpSpeed = 2f;
 
     Rigidbody2D rb2d;
     SurfaceEffector2D surfaceEffector2D;
-    CapsuleCollider2D myBodyCollider;
+    CapsuleCollider2D myFeetCollider;
+    BoxCollider2D myBodyCollider;
     bool canMove = true;
 
     // Start is called before the first frame update
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
-        myBodyCollider = GetComponent<CapsuleCollider2D>();
+        myFeetCollider = GetComponent<CapsuleCollider2D>();
+        myBodyCollider = GetComponent<BoxCollider2D>();
         surfaceEffector2D = FindObjectOfType<SurfaceEffector2D>();
     }
 
@@ -29,7 +32,8 @@ public class PlayerController : MonoBehaviour
         {
             RotatePlayer();
             RespondToBoost();
-            OnJump();
+            Jump();
+            Die();
         }
     }
 
@@ -62,15 +66,23 @@ public class PlayerController : MonoBehaviour
         }
 
     }
-    void OnJump()
+    void Jump()
     {
         //if (!isAlive) { return; }
-        if (!myBodyCollider.IsTouchingLayers(LayerMask.GetMask("Ground"))) { return; }
+        if (!myFeetCollider.IsTouchingLayers(LayerMask.GetMask("Ground"))) { return; }
 
         if (Input.GetKey(KeyCode.Space))
         {
-            // do stuff
-            rb2d.velocity += new Vector2(0f, 2f);
+            rb2d.velocity += new Vector2(0f, jumpSpeed);
+        }
+    }
+
+    void Die()
+    {
+        if (myBodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemies"))
+            || myFeetCollider.IsTouchingLayers(LayerMask.GetMask("Enemies")))
+        {
+            FindObjectOfType<GameSession>().ResetGameSession();
         }
     }
 }

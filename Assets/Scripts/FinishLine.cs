@@ -14,7 +14,7 @@ public class FinishLine : MonoBehaviour
         {
             finishEffect.Play();
             GetComponent<AudioSource>().Play();
-            Invoke("ReloadScene", loadDelay);
+            StartCoroutine(LoadNextLevel());
         }
     }
 
@@ -22,5 +22,21 @@ public class FinishLine : MonoBehaviour
     {
         FindObjectOfType<GameSession>().SaveHighestScore();
         SceneManager.LoadScene(0);
+    }
+
+    IEnumerator LoadNextLevel()
+    {
+        yield return new WaitForSecondsRealtime(loadDelay);
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        int nextSceneIndex = currentSceneIndex + 1;
+
+        if (nextSceneIndex == SceneManager.sceneCountInBuildSettings)
+        {
+            FindObjectOfType<GameSession>().SaveHighestScore();
+            nextSceneIndex = 0;
+        }
+
+        FindObjectOfType<ScenePersist>().ResetScenePersist();
+        SceneManager.LoadScene(nextSceneIndex);
     }
 }

@@ -45,4 +45,12 @@ public class GameSession : MonoBehaviour
         score = 0;
         scoreText.text = score.ToString();
     }
+
+
+    internal void ResetGameSession()
+    {
+        FindObjectOfType<ScenePersist>().ResetScenePersist();
+        SceneManager.LoadScene(0);
+        Destroy(gameObject);
+    }
 }
