@@ -77,12 +77,18 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void DieThietNe()
+    {
+        FindObjectOfType<GameSession>().ResetGameSession();
+
+    }
+
     void Die()
     {
         if (myBodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemies"))
             || myFeetCollider.IsTouchingLayers(LayerMask.GetMask("Enemies")))
         {
-            FindObjectOfType<GameSession>().ResetGameSession();
+            Invoke("DieThietNe", 2f);
         }
     }
 }
