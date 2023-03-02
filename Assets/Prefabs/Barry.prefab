@@ -4973,8 +4973,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.99}
-  m_Size: {x: 2.75, y: 0.21}
+  m_Offset: {x: -0.0000000032886334, y: -1.0275873}
+  m_Size: {x: 2.7500002, y: 0.28517434}
   m_Direction: 1
 --- !u!58 &3778051940841288499
 CircleCollider2D:
@@ -5007,6 +5007,7 @@ MonoBehaviour:
   torqueAmount: 10
   boostSpeed: 40
   baseSpeed: 20
+  jumpSpeed: 2
 --- !u!114 &3778051940841288494
 MonoBehaviour:
   m_ObjectHideFlags: 0
